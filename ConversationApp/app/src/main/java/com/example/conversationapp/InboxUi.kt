@@ -50,7 +50,7 @@ fun InboxScreen(
                 Text(text = message.sender.firstName)
                 Text(message.subject)
             }
-            Text(text = "7/14/23")
+            Text(message.createdAt)
         }
 
     }

@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val inboxLazyListState = rememberLazyListState()
-                    InboxMessageList(emails = mail.emails, inboxLazyListState = inboxLazyListState)
+                    InboxMessageList(messages = messages, inboxLazyListState = inboxLazyListState)
                 }
             }
         }
@@ -39,15 +39,12 @@ class MainActivity : ComponentActivity() {
 }
 //
 
-val emails = LocalMessageDataProvider.allMessages
+val messages = LocalMessageDataProvider.allMessages
 
 
-val mail = InboxHomeUIState(
-    emails = emails,
-    selectedEmail = emails.first()
-)
+
 data class InboxHomeUIState(
-    val emails: List<Message> = emptyList(),
+    val messages: List<Message> = emptyList(),
     val selectedEmail: Message? = null,
     val isDetailOnlyOpen: Boolean = false,
     val loading: Boolean = false,
@@ -56,7 +53,7 @@ data class InboxHomeUIState(
 
 @Composable
 fun InboxMessageList(
-    emails: List<Message>,
+    messages: List<Message>,
     inboxLazyListState: LazyListState,
     //selectedEmail: Message? = null,
     modifier: Modifier = Modifier,
@@ -66,9 +63,9 @@ fun InboxMessageList(
 //        item {
 //            ReplySearchBar(modifier = Modifier.fillMaxWidth())
 //        }
-        items(items = emails, key = { it.id }) { email ->
+        items(items = messages, key = { it.id }) { message ->
             InboxScreen(
-                message = email,
+                message = message,
   //              isSelected = email.id == selectedEmail?.id
             )
 //            { emailId ->
